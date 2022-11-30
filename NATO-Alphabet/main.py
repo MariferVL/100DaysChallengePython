@@ -1,3 +1,5 @@
+import pandas as pd
+
 student_dict = {
     "student": ["Angela", "James", "Lily"], 
     "score": [56, 76, 98]
@@ -8,7 +10,6 @@ for (key, value) in student_dict.items():
     # Access key and value
     pass
 
-import pandas as pd
 student_data_frame = pd.DataFrame(student_dict)
 
 # Loop through rows of a data frame
@@ -31,12 +32,16 @@ print(nato_dict)"""
 
 # TODO 2. Create a list of the phonetic code words from a word that the user inputs.
 
-input_word = input("Write the word you need to transform in NATO: \n").upper()
+input_ok = False
+while not input_ok:
+    input_word = input("Write the word you want to transform in NATO: \n").upper()
+    try:
+        word_nato = [nato_dict[letter] for letter in input_word]
+        print(f"\nYour NATO is: {word_nato}")
+        input_ok = True
+    except KeyError:
+        print("Please, type only letters include in the alphabet.")
 
-word_nato = [nato_dict[letter] for letter in input_word]
-"""for char in input_word:
-        word_nato.append(nato_dict[char])"""
-print(f"\nYour NATO is: {word_nato}")
 
 
 
