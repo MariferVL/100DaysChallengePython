@@ -2,6 +2,7 @@
 # password using Tkinter module
 from random import choice, sample
 from tkinter import *
+from tkinter import messagebox
 from tkinter.ttk import Combobox, Style
 import json
 import pyperclip
@@ -85,7 +86,7 @@ def on_leave(e):
 ### Save Password ###
 
 def save_info():
-    website = web_input.get()
+    website = web_input.get().capitalize()
     username = email_input.get()
     password = pass_input.get()
     data = {
@@ -111,6 +112,24 @@ def save_info():
         web_input.delete(0, 'end')
         pass_input.delete(0, 'end')
         print(file)
+
+
+def search():
+    website = web_input.get().capitalize()
+    try:
+        with open("passlaxy.json", "r") as file:
+            saved_file = json.load(file)
+            if website in saved_file:
+                print(saved_file)
+                messagebox.showinfo(title=f"🔐{website} data:",
+                                    message=f"\n👤Username: {saved_file[website]['email']}\n🔑Password: "
+                                            f"{saved_file[website]['password']}")
+            else:
+                messagebox.showerror(title="Error", message=f"{website} it's not in your records.")
+
+    except FileNotFoundError:
+        messagebox.showerror(title="Error", message=f"You don't have records yet.")
+
 
 ### UI Setup ###
 
@@ -141,13 +160,17 @@ canvas.grid(column=1, row=0, columnspan=5)
 # create website label and entry to show
 web_label = Label(text="Website:", bg=WHITE, fg=BLACK, font=("Century Gothic", 11, "bold"))
 web_label.place(x=56, y=199)
-web_input = Entry(width=44, bg=BLACK, fg=WHITE, font=("Century Gotic", 11, "bold"), insertbackground="white")
-web_input.grid(column=2, row=1, columnspan=2)
-locked = emoji.emojize(":locked_with_key:")
-
-#TODO add emoji
-web_input.insert(0, f"{locked}")
+web_input = Entry(width=30, bg=BLACK, fg=WHITE, font=("Century Gotic", 11, "bold"), insertbackground="white")
+web_input.grid(column=2, row=1)
+# TODO add emoji
+# web_input.insert(0, f"{locked}")
 web_input.focus()
+
+search_btn = Button(text="Search", width=13, bg=BLACK, fg=RED, font=("Century Gotic", 8, "bold"), command=search)
+search_btn.grid(column=3, row=1)
+search_btn.bind("<ButtonPress>", on_click)
+search_btn.bind("<Enter>", hover)
+search_btn.bind("<Leave>", on_leave)
 
 # create email label and entry to show
 email_label = Label(text="Email/Username:", bg=WHITE, fg=BLACK, font=("Century Gotic", 11, "bold"), height=2)
