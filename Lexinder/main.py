@@ -75,6 +75,10 @@ def reverse():
     def_box.insert('end', last_def)
 
 
+
+df_dict = pd.DataFrame(squirrel_dict)
+df_dict.to_csv("squirrel_count.csv")
+
 ### UI Setup ###
 
 # create GUI Main window
