@@ -4,108 +4,137 @@ from random import randint
 
 # TODO If answer is correct save in file to count them
 # TODO If answer is wrong save in file to show them at the end
+def_displayed = []
 checked_words = []
-unknown_words = []
+words_study = []
 fav_words = []
-dictionary = pd.read_csv("Data/IELTS-Wordlist.csv")
-data_dict = dictionary.to_dict()
-item = ""
-words_studied = []
+data_dict = {}
+item_def = ""
+item_word = ""
+item_type = ""
+item_sentence = ""
 num_words = 0
 num_x = 0
 
 
-# TODO Change definitions
-def random_def():
-    global item
-    start_button.destroy()
-    def_box.delete('1.0', END)
-    i = randint(0, 90)
-    if num_words + num_x < 91:
-        item = data_dict["definition"][i]
-        words_studied.append(item)
-        def_box.insert('end', item)
+def read_data():
+    global data_dict
+    try:
+        data = pd.read_csv('Data/words_to_check.csv')
+    except FileNotFoundError:
+        data = pd.read_csv("Data/IELTS-Wordlist.csv")
+    finally:
+        data_dict = data.to_dict()
+    return random_def(data_dict)
 
-        # if item not in checked_words and item not in unknown_words:
+# TODO Change definitions
+def random_def(data):
+    global item_def, item_word, item_type, item_sentence
+    start_button.destroy()
+    if num_words + num_x < 90:
+        i = randint(1, 91)
+        item_def = data["definition"][i]
+        item_word = data["word"][i]
+        item_type = data["type"][i]
+        item_sentence = data["sentence"][i]
+        canvas.itemconfig(def_box, text=item_def)
+
+        def_displayed.append({"Word": item_word, "Type": item_type, "Definition": item_def, "Sentence": item_sentence})
+
     else:
-        game_over = "Has revisado todas las palabras"
-        def_box.insert('end', game_over)
-    root.after(4400, show_answer)
+        canvas.create_image(0, 0, image=game_over)
+
+    root.after(2000, show_answer)
 
 
 def check_answer():
     global num_words
-    checked_words.append(item)
+    checked_words.append(item_word)
     num_words = len(checked_words)
     count_check.delete('1.0', END)
-    correct_answer.delete('1.0', END)
     count_check.insert('end', f"{num_words}")
-    random_def()
+    clean_screen()
+    random_def(data_dict)
 
 
 def wrong_answer():
     global num_x
-    unknown_words.append(item)
-    num_x = len(unknown_words)
+    words_study.append({"Word": item_word, "Type": item_type, "Definition": item_def, "Sentence": item_sentence})
+    num_x = len(words_study)
     count_x.delete('1.0', END)
-    correct_answer.delete('1.0', END)
     count_x.insert('end', f"{num_x}")
-    random_def()
-    print("Guardado para estudiar!")
+    data = pd.DataFrame(words_study)
+    # Append data
+    data.to_csv('Data/words_to_check.csv', mode='a')
+    clean_screen()
+    random_def(data_dict)
 
 
 # TODO Display answer
 def show_answer():
-    def_dict = data_dict["definition"]
-    word_dict = data_dict["word"]
-    word_key = list(def_dict.keys())[list(def_dict.values()).index(item)]
-    correct_answer.insert('end', f"{(word_dict[word_key]).capitalize()}")
+    # word_key = list(item_def.keys())[list(item_def.values()).index(item_def)]
+    canvas.itemconfig(type_word, text=item_type)
+    root.after(2000, canvas.itemconfig(sentence_word, text=f"'{item_sentence}'"))
+    root.after(4000, canvas.itemconfig(correct_answer, text=item_word.capitalize()))
+
+
+
+def clean_screen():
+    canvas.itemconfig(correct_answer, text="")
+    canvas.itemconfig(type_word, text="")
+    canvas.itemconfig(sentence_word, text="")
 
 
 # TODO Save in file fav words
 def save_fav():
-    fav_words.append(item)
+    fav_words.append({"Word": item_word, "Type": item_type, "Definition": item_def, "Sentence": item_sentence})
+    data = pd.DataFrame(fav_words)
+    # data.to_csv("words_to_check.csv")
+    # Append data
+    data.to_csv('Data/favorite_words.csv', mode='a')
 
 
 # TODO Create a reverse button
 
 def reverse():
-    last_def = words_studied[-2]
-    def_box.delete('1.0', END)
-    def_box.insert('end', last_def)
+    last_def = def_displayed[-1]
+    clean_screen()
+    canvas.itemconfig(def_box, text=last_def["Definition"])
+    canvas.itemconfig(correct_answer, text=last_def["Word"])
+    canvas.itemconfig(type_word, text=last_def["Type"])
+    canvas.itemconfig(sentence_word, text=f"'{last_def['Sentence']}'")
 
-
-
-df_dict = pd.DataFrame(squirrel_dict)
-df_dict.to_csv("squirrel_count.csv")
 
 ### UI Setup ###
 
 # create GUI Main window
 root = Tk()
 root.title("Lexinger")
+# root.wm_attributes('-transparentcolor', '#ab23ff')
 
 # Adjust size:
 root.geometry("363x600")
+root.maxsize(363, 600)
+
 # Add image file
-bg = PhotoImage(file="Images/flash_card.png")
+bg = PhotoImage(file="Images/flash_card1.png")
+game_over = PhotoImage(file="Images/flash_card2.png")
 
 # create canvas to set flash card
-canvas = Canvas(root, width=363, height=600)
+canvas = Canvas(root, width=363, height=100)
 canvas.pack(fill="both", expand=True)
 canvas.create_image(0, 0, image=bg, anchor="nw")
 
 # TODO Display meaning in screen
-def_box = Text(root, height=6, width=16, borderwidth=0, bg="black", fg="white",
-               font='"Klee One" 16 bold', wrap=WORD)
-def_box.place(x=72, y=150)
+correct_answer = canvas.create_text(74, 127, anchor="nw", width=244, fill="#FF3D74", text="", font='"Klee One" 18 bold')
+type_word = canvas.create_text(74, 160, anchor="nw", width=244, fill="#07B31C", text="", font='"Klee One" 12')
+def_box = canvas.create_text(74, 188, anchor="nw", width=244, fill="#FF3D74", text="", font='"Klee One" 14 bold')
+sentence_word = canvas.create_text(74, 277, anchor="nw", width=230, fill="#07B31C", text="",
+                                   font='"Klee One" 11 italic')
 count_x = Text(root, borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
 count_x.place(x=266, y=383)
 count_check = Text(root, borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
 count_check.place(x=326, y=382)
-correct_answer = Text(root, borderwidth=0, height=1, width=22, fg="black", wrap=WORD, font='"Klee One" 16 bold')
-correct_answer.place(x=44, y=411)
-# correct_answer.delete('1.0', END)
 
 # Number of Words guessed
 
@@ -126,8 +155,9 @@ reverse_img = reverse_img.zoom(6)
 reverse_img = reverse_img.subsample(33)
 
 # Buttons UI
-start_button = Button(root, image=start_img, height=113, width=248, activebackground='black', borderwidth=0,
-                      command=random_def)
+start_button = Button(root, image=start_img, height=113, width=248, borderwidth=0,
+                      command=read_data, relief="flat")
+canvas.create_window(56, 170, window=start_button)
 start_button.place(x=56, y=170)
 Button(root, image=x_img, height=44, width=44, borderwidth=0, command=wrong_answer).place(x=114, y=502)
 Button(root, image=check_img, height=44, width=44, borderwidth=0, command=check_answer).place(x=203, y=503)
