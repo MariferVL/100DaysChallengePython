@@ -78,7 +78,7 @@ def show_answer():
     root.after(4000, canvas.itemconfig(correct_answer, text=item_word.capitalize()))
 
 
-
+##Working
 def clean_screen():
     canvas.itemconfig(correct_answer, text="")
     canvas.itemconfig(type_word, text="")
