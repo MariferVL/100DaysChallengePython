@@ -40,8 +40,9 @@ def random_def():
         canvas.itemconfig(def_box, text=item_def)
 
         def_displayed.append({"word": item_word, "type": item_type, "definition": item_def, "sentence": item_sentence})
-
     else:
+        root.after_cancel(wait)
+        clean_screen()
         canvas.itemconfig(canvas_bg, image=game_over)
 
     show_answer()
@@ -155,11 +156,11 @@ canvas.pack(fill="both", expand=True)
 canvas_bg = canvas.create_image(0, 0, image=bg, anchor="nw")
 
 # TODO Display meaning in screen
-correct_answer = canvas.create_text(74, 127, anchor="nw", width=244, fill="#FF3D74", text="", font='"Klee One" 18 bold')
-type_word = canvas.create_text(74, 160, anchor="nw", width=244, fill="#07B31C", text="", font='"Klee One" 12 italic')
-def_box = canvas.create_text(74, 188, anchor="nw", width=236, fill="#FF3D74", text="", font='"Klee One" 12 bold')
+correct_answer = canvas.create_text(74, 120, anchor="nw", width=244, fill="#FF3D74", text="", font='"Klee One" 18 bold')
+type_word = canvas.create_text(74, 153, anchor="nw", width=244, fill="#07B31C", text="", font='"Klee One" 12 italic')
+def_box = canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", text="", font='"Klee One" 12 bold', justify=CENTER)
 sentence_word = canvas.create_text(74, 274, anchor="nw", width=238, fill="#07B31C", text="",
-                                   font='"Klee One" 11 italic')
+                                   font='"Klee One" 11 italic', justify=CENTER)
 count_x = Text(root, borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
 count_x.place(x=266, y=383)
 count_check = Text(root, borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
