@@ -1,6 +1,6 @@
 from tkinter import *
 import pandas as pd
-from random import randint
+from random import sample, choice
 
 # TODO If answer is correct save in file to count them
 # TODO If answer is wrong save in file to show them at the end
@@ -8,47 +8,49 @@ def_displayed = []
 checked_words = []
 words_study = []
 fav_words = []
+data_dict = []
 item_def = ""
 item_word = ""
 item_type = ""
 item_sentence = ""
+
 num_words = 0
 num_x = 0
-wait = ""
-wait2 = ""
 
-data = pd.read_csv("Data/IELTS-Wordlist.csv")
-data_dict = data.to_dict()
-print(data_dict)
-
-
-# try:
-#     data = pd.read_csv('Data/words_to_check.csv')
-# except FileNotFoundError:
-#     data = pd.read_csv("Data/IELTS-Wordlist.csv")
-# finally:
+try:
+    data = pd.read_csv('Data/words_to_check.csv')
+except FileNotFoundError:
+    data = pd.read_csv("Data/IELTS-Wordlist.csv")
+finally:
+    data_dict = data.to_dict(orient="records")
 
 
 # TODO Change definitions
 def random_def():
-    global item_def, item_word, item_type, item_sentence
+    global item_def, item_word, item_sentence, item_type
     start_button.destroy()
-    if num_words + num_x < 90:
-        i = randint(1, 90)
-        item_def = data_dict["definition"][i]
-        item_word = data_dict["word"][i]
-        item_type = data_dict["type"][i]
-        item_sentence = data_dict["sentence"][i]
-        canvas.itemconfig(def_box, text=item_def)
+    clean_screen()
+    print(f"Dict index: {len(data_dict) - 1}")
+    if (num_words + num_x) < (len(data_dict) - 1):
+        item = choice(data_dict)
+        if item not in def_displayed:
+            item_def = item["definition"]
+            item_word = item["word"]
+            item_type = item["type"]
+            item_sentence = item["sentence"]
+            canvas.itemconfig(def_box, text=item_def)
+            def_displayed.append(item)
+            show_answer()
+        else:
+            random_def()
 
-        def_displayed.append({"word": item_word, "type": item_type, "definition": item_def, "sentence": item_sentence})
     else:
-        root.after_cancel(wait)
-        clean_screen()
-        root.after(2000)
-        canvas.itemconfig(canvas_bg, image=game_over)
+        game_over()
 
-    show_answer()
+
+def game_over():
+    clean_screen()
+    canvas.itemconfig(canvas_bg, image=game_over_img)
 
 
 def check_answer():
@@ -58,7 +60,6 @@ def check_answer():
     num_words = len(checked_words)
     count_check.delete('1.0', END)
     count_check.insert('end', f"{num_words}")
-    clean_screen()
     random_def()
 
 
@@ -70,23 +71,10 @@ def wrong_answer():
     count_x.delete('1.0', END)
     count_x.insert('end', f"{num_x}")
     unknown_data = pd.DataFrame(words_study)
-    try:
-        unknown_csv = pd.read_csv('Data/words_to_check.csv')
-        unknown_dict = unknown_csv.to_dict()
-    except FileNotFoundError:
-        # Create a file
-        unknown_data.to_csv('Data/words_to_check.csv', mode='w')
-    else:
-        if item_word not in unknown_dict["word"]:
-            # Append data
-            unknown_data.to_csv('Data/words_to_check.csv', mode='a', index=False, header=False)
-        else:
-            pass
-    clean_screen()
+    unknown_data.to_csv('Data/words_to_check.csv', index=False)
     random_def()
 
 
-# TODO Display answer
 def show_answer():
     # word_key = list(item_def.keys())[list(item_def.values()).index(item_def)]
     wait_for_it()
@@ -98,9 +86,9 @@ def show_answer():
 
 
 def wait_for_it():
-    global wait, wait2
+    global wait
     var = IntVar()
-    wait = root.after(3000, var.set, 1)
+    wait = root.after(300, var.set, 1)
     print("waiting...")
     root.wait_variable(var)
 
@@ -114,19 +102,10 @@ def clean_screen():
 
 # TODO Save in file fav words
 def save_fav():
-    fav_words.append({"word": item_word, "type": item_type, "definition": item_def, "sentence": item_sentence})
-    fav_data = pd.DataFrame(fav_words)
-    try:
-        fav_csv = pd.read_csv('Data/favorite_words.csv')
-    except FileNotFoundError:
-        # Create a file
-        fav_data.to_csv('Data/favorite_words.csv', mode='w')
-    else:
-        if item_word not in fav_csv:
-            # Append data
-            fav_data.to_csv('Data/favorite_words.csv', mode='a', index=False, header=False)
-        else:
-            pass
+    if item_word not in fav_words:
+        fav_words.append({"word": item_word, "type": item_type, "definition": item_def, "sentence": item_sentence})
+        fav_data = pd.DataFrame(fav_words)
+        fav_data.to_csv('Data/favorite_words.csv', index=False)
 
 
 # TODO Create a reverse button
@@ -153,7 +132,7 @@ root.maxsize(363, 600)
 
 # Add image file
 bg = PhotoImage(file="Images/flash_card1.png")
-game_over = PhotoImage(file="Images/flash_card2.png")
+game_over_img = PhotoImage(file="Images/flash_card2.png")
 
 # create canvas to set flash card
 canvas = Canvas(root, width=363, height=100)
@@ -168,9 +147,10 @@ def_box = canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", te
 sentence_word = canvas.create_text(74, 274, anchor="nw", width=238, fill="#07B31C", text="",
                                    font='"Klee One" 11 italic', justify=LEFT)
 count_x = Text(root, borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
-count_x.place(x=266, y=383)
+count_x.place(x=326, y=382)
+
 count_check = Text(root, borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
-count_check.place(x=326, y=382)
+count_check.place(x=266, y=383)
 
 # TODO Create fav, correct, wrong and reverse buttons.
 # Buttons img
