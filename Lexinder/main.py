@@ -1,6 +1,6 @@
 from tkinter import *
 import pandas as pd
-from random import sample, choice
+from random import choice
 
 # TODO If answer is correct save in file to count them
 # TODO If answer is wrong save in file to show them at the end
