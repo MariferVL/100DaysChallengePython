@@ -15,9 +15,11 @@ item_sentence = ""
 num_words = 0
 num_x = 0
 wait = ""
+wait2 = ""
 
 data = pd.read_csv("Data/IELTS-Wordlist.csv")
 data_dict = data.to_dict()
+print(data_dict)
 
 
 # try:
@@ -32,7 +34,7 @@ def random_def():
     global item_def, item_word, item_type, item_sentence
     start_button.destroy()
     if num_words + num_x < 90:
-        i = randint(1, 91)
+        i = randint(1, 90)
         item_def = data_dict["definition"][i]
         item_word = data_dict["word"][i]
         item_type = data_dict["type"][i]
@@ -43,6 +45,7 @@ def random_def():
     else:
         root.after_cancel(wait)
         clean_screen()
+        root.after(2000)
         canvas.itemconfig(canvas_bg, image=game_over)
 
     show_answer()
@@ -69,11 +72,12 @@ def wrong_answer():
     unknown_data = pd.DataFrame(words_study)
     try:
         unknown_csv = pd.read_csv('Data/words_to_check.csv')
+        unknown_dict = unknown_csv.to_dict()
     except FileNotFoundError:
         # Create a file
         unknown_data.to_csv('Data/words_to_check.csv', mode='w')
     else:
-        if item_word not in unknown_csv:
+        if item_word not in unknown_dict["word"]:
             # Append data
             unknown_data.to_csv('Data/words_to_check.csv', mode='a', index=False, header=False)
         else:
@@ -94,7 +98,7 @@ def show_answer():
 
 
 def wait_for_it():
-    global wait
+    global wait, wait2
     var = IntVar()
     wait = root.after(3000, var.set, 1)
     print("waiting...")
@@ -104,6 +108,7 @@ def wait_for_it():
 def clean_screen():
     canvas.itemconfig(correct_answer, text="")
     canvas.itemconfig(type_word, text="")
+    canvas.itemconfig(def_box, text="")
     canvas.itemconfig(sentence_word, text="")
 
 
@@ -158,9 +163,10 @@ canvas_bg = canvas.create_image(0, 0, image=bg, anchor="nw")
 # TODO Display meaning in screen
 correct_answer = canvas.create_text(74, 120, anchor="nw", width=244, fill="#FF3D74", text="", font='"Klee One" 18 bold')
 type_word = canvas.create_text(74, 153, anchor="nw", width=244, fill="#07B31C", text="", font='"Klee One" 12 italic')
-def_box = canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", text="", font='"Klee One" 12 bold', justify=CENTER)
+def_box = canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", text="", font='"Klee One" 12 bold',
+                             justify=LEFT)
 sentence_word = canvas.create_text(74, 274, anchor="nw", width=238, fill="#07B31C", text="",
-                                   font='"Klee One" 11 italic', justify=CENTER)
+                                   font='"Klee One" 11 italic', justify=LEFT)
 count_x = Text(root, borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
 count_x.place(x=266, y=383)
 count_check = Text(root, borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
