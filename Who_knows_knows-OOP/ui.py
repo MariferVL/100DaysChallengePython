@@ -21,7 +21,8 @@ class TriviaUI:
         check_img = PhotoImage(file="images/like_btn.png")
         check_img = check_img.zoom(11)
         check_img = check_img.subsample(33)
-
+# TODO move bg img to window
+# TODO set canvas as the inner square
         # UI Canvas
         self.canvas = Canvas(width=363, height=100)
         self.canvas.pack(fill="both", expand=True)

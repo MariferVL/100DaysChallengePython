@@ -2,30 +2,30 @@
     "response_code": 0,
     "results": [
         {
-            "category": "Science: Computers",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "The HTML5 standard was published in 2014.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Animals",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "&quot;Kamea,&quot; the Gilbertese Islander word for dog, is derived from the English phrase &quot;Come here!&quot;",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
             "category": "Entertainment: Music",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "The country song  &ldquo;A Boy Named Sue&rdquo; was written by Shel Silverstein.",
+            "question": "Rapper Snoop Dogg&#039;s real name is &#039;Cordozar Calvin Broadus, Jr.&#039;.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Japanese Anime & Manga",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "The animated film &quot;Spirited Away&quot; won the Academy Award for Best Animated Feature at the 75th Academy Awards in 2003.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Japanese Anime & Manga",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "The anime Attack on Titan was directed by Tetsur\u014d Araki, the same person who directed the anime Highschool of the Dead.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -35,27 +35,17 @@
             "category": "Geography",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "There exists an island named &quot;Java&quot;.",
+            "question": "You could walk from Norway to North Korea while only passing through Russia.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
             ]
         },
         {
-            "category": "Politics",
+            "category": "Science: Computers",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "During the 2016 United States presidential election, the State of California possessed the most electoral votes, having 55.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Entertainment: Music",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "3 members of 2 Live Crew were arrested for playing songs from their album, As Nasty As They Wanna Be, live.",
+            "question": "Early RAM was directly seated onto the motherboard and could not be easily removed.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -72,20 +62,20 @@
             ]
         },
         {
-            "category": "Entertainment: Video Games",
+            "category": "Sports",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "In Portal, the Companion Cube&#039;s ARE sentient.",
+            "question": "Wilt Chamberlain scored his infamous 100-point-game against the New York Knicks in 1962.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
             ]
         },
         {
-            "category": "Entertainment: Music",
+            "category": "Entertainment: Video Games",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Dave Grohl recorded the Foo Fighters&#039; debut, &quot;Foo Fighters,&quot; by himself.",
+            "question": "Hidden in the files for &quot;Mario Kart Arcade GP&quot; is a picture of the Beslan school hostage crisis.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -95,10 +85,20 @@
             "category": "General Knowledge",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Popcorn was invented in 1871 by Frederick W. Rueckheim in the USA where he sold the snack on the streets of Chicago.",
-            "correct_answer": "False",
+            "question": "The British organisation CAMRA stands for The Campaign for Real Ale.",
+            "correct_answer": "True",
             "incorrect_answers": [
-                "True"
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Video Games",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "Minecraft wasn&rsquo;t the original name to Minecraft.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
             ]
         }
     ]
