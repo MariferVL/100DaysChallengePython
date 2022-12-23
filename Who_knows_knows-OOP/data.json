@@ -12,60 +12,30 @@
             ]
         },
         {
-            "category": "Entertainment: Video Games",
+            "category": "Animals",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "DragonForce&#039;s &#039;Through the Fire and Flames&#039; is widely considered to be the hardest song in the Guitar Hero series.",
+            "question": "&quot;Kamea,&quot; the Gilbertese Islander word for dog, is derived from the English phrase &quot;Come here!&quot;",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
             ]
         },
         {
-            "category": "Science & Nature",
+            "category": "Entertainment: Music",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Steel is an alloy of Iron and Carbon.",
+            "question": "The country song  &ldquo;A Boy Named Sue&rdquo; was written by Shel Silverstein.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
             ]
         },
         {
-            "category": "Science & Nature",
+            "category": "Geography",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Centripedal force is an apparent force that acts outward on a body moving around a center, arising from the body&#039;s inertia.",
-            "correct_answer": "False",
-            "incorrect_answers": [
-                "True"
-            ]
-        },
-        {
-            "category": "Entertainment: Video Games",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "Pistons were added to Minecraft in Beta 1.5.",
-            "correct_answer": "False",
-            "incorrect_answers": [
-                "True"
-            ]
-        },
-        {
-            "category": "General Knowledge",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "Fast food restaurant chains Carl&#039;s Jr. and Hardee&#039;s are owned by the same company.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Science: Mathematics",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "The set of all algebraic numbers is countable.",
+            "question": "There exists an island named &quot;Java&quot;.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -75,17 +45,47 @@
             "category": "Politics",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Jeb Bush was elected as Governor of Florida in 2002, starting his political career.",
+            "question": "During the 2016 United States presidential election, the State of California possessed the most electoral votes, having 55.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Music",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "3 members of 2 Live Crew were arrested for playing songs from their album, As Nasty As They Wanna Be, live.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Television",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "Bob Ross was a US Air Force pilot.",
             "correct_answer": "False",
             "incorrect_answers": [
                 "True"
             ]
         },
         {
-            "category": "Science & Nature",
+            "category": "Entertainment: Video Games",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "&quot;Tachycardia&quot; or &quot;Tachyarrhythmia&quot; refers to a resting heart-rate near or over 100 BPM.",
+            "question": "In Portal, the Companion Cube&#039;s ARE sentient.",
+            "correct_answer": "True",
+            "incorrect_answers": [
+                "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Music",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "Dave Grohl recorded the Foo Fighters&#039; debut, &quot;Foo Fighters,&quot; by himself.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -95,10 +95,10 @@
             "category": "General Knowledge",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Instant mashed potatoes were invented by Canadian Edward Asselbergs in 1962.",
-            "correct_answer": "True",
+            "question": "Popcorn was invented in 1871 by Frederick W. Rueckheim in the USA where he sold the snack on the streets of Chicago.",
+            "correct_answer": "False",
             "incorrect_answers": [
-                "False"
+                "True"
             ]
         }
     ]

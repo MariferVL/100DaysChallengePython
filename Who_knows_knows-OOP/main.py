@@ -1,6 +1,7 @@
 from trivia_model import Question
 from data import triviaData
 from trivia_constructor import Trivia
+from ui import *
 
 
 item_displayed = []
@@ -13,7 +14,7 @@ for item in triviaData:
     item_displayed.append(new_item)
 
 quiz = Trivia(item_displayed)
-root = TriviaUI()
+root = TriviaUI(quiz)
 
 
 # f"Your final score was: {quiz.score}/{quiz.question_number}"

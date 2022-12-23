@@ -1,3 +1,6 @@
+from html import unescape
+
+
 class Trivia:
 
     def __init__(self, q_list):
@@ -14,6 +17,8 @@ class Trivia:
     def next_question(self):
         self.current_question = self.question_list[self.question_number]
         self.question_number += 1
+        text = unescape(self.current_question.text)
+        return text
 
     def check_answer(self, user_answer):
         correct_answer = self.current_question.answer

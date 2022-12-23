@@ -1,11 +1,8 @@
-THEME_COLOR = "#375362"
 from tkinter import *
-from html import unescape
 
 
-### UI Setup ###
 class TriviaUI:
-    def __init__(self):
+    def __init__(self, trivia):
         # create GUI Main window
         self.window = Tk()
         self.window.title("Who knows, knows.")
@@ -16,21 +13,6 @@ class TriviaUI:
         # UI Images
         bg = PhotoImage(file="images/flash_card1.png")
         self.game_over_img = PhotoImage(file="images/flash_card2.png")
-
-        # UI Canvas
-        self.canvas = Canvas(width=363, height=100)
-        self.canvas.pack(fill="both", expand=True)
-        self.canvas_bg = self.canvas.create_image(0, 0, image=bg, anchor="nw")
-
-        # Display question on screen
-        text_box = self.canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", text="", font='"Klee One" 12 bold',
-                                      justify=LEFT)
-        count_check = Text(borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
-        count_check.place(x=326, y=386)
-
-        count_x = Text(borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
-        count_x.place(x=266, y=386)
-
         # Buttons img
         start_img = PhotoImage(file="images/start_button.png")
         x_img = PhotoImage(file="images/x_btn.png")
@@ -40,11 +22,28 @@ class TriviaUI:
         check_img = check_img.zoom(11)
         check_img = check_img.subsample(33)
 
+        # UI Canvas
+        self.canvas = Canvas(width=363, height=100)
+        self.canvas.pack(fill="both", expand=True)
+        self.canvas_bg = self.canvas.create_image(0, 0, image=bg, anchor="nw")
+
+        # Display question and score on screen
+        self.text_box = self.canvas.create_text(74, 181, anchor="nw", width=236, fill="#FF3D74", text="",
+                                                font='"Klee One" 12 bold', justify=LEFT)
+        self.count_check = Text(borderwidth=0, height=1, width=2, fg="#DBDBDB", wrap=WORD, font='Helvetica 13 bold')
+        self.count_check.place(x=326, y=386)
+
+        self.count_x = Text(borderwidth=0, fg="#DBDBDB", height=1, width=2, wrap=WORD, font='Helvetica 13 bold')
+        self.count_x.place(x=266, y=386)
+
         # Buttons UI
-        start_button = Button(image=start_img, borderwidth=0, height=113, width=248, command=start_game, relief="flat")
-        self.canvas.create_window(54, 168, anchor="nw", window=start_button)
-        Button(image=x_img, height=44, width=44, borderwidth=0, command=press_false).place(x=114, y=502)
-        Button(image=check_img, height=44, width=45, borderwidth=0, command=press_true).place(x=203, y=503)
+        self.start_button = Button(image=start_img, borderwidth=0, height=113, width=248, command=self.start_game,
+                                   relief="flat")
+        self.canvas.create_window(54, 168, anchor="nw", window=self.start_button)
+        Button(image=x_img, height=44, width=44, borderwidth=0, command=self.press_false).place(x=114, y=502)
+        Button(image=check_img, height=44, width=45, borderwidth=0, command=self.press_true).place(x=203, y=503)
+
+        self.quiz = trivia
 
         # # Track Mouse Position:
         # def motion(event):
@@ -56,41 +55,34 @@ class TriviaUI:
         # start the GUI
         self.window.mainloop()
 
-
-    def start_game():
-        start_button.destroy()
-        clean_screen()
-        if quiz.still_has_questions():
-            quiz.next_question()
-            i_text = unescape(quiz.current_question.text)
-            self.canvas.itemconfig(text_box, text=i_text)
+    def start_game(self):
+        self.start_button.destroy()
+        self.clean_screen()
+        if self.quiz.still_has_questions():
+            i_text = self.quiz.next_question()
+            self.canvas.itemconfig(self.text_box, text=i_text)
         else:
-            game_over()
+            self.game_over()
 
-
-    def game_over():
-        clean_screen()
+    def game_over(self):
+        self.clean_screen()
         self.canvas.itemconfig(self.canvas_bg, image=self.game_over_img)
 
+    def press_false(self):
+        self.quiz.check_answer("false")
+        self.update_score()
+        self.start_game()
 
-    def press_false():
-        quiz.check_answer("false")
-        update_score()
-        start_game()
+    def press_true(self):
+        self.quiz.check_answer("true")
+        self.update_score()
+        self.start_game()
 
+    def update_score(self):
+        self.count_check.delete('1.0', END)
+        self.count_check.insert('end', f"{self.quiz.score}")
+        self.count_x.delete('1.0', END)
+        self.count_x.insert('end', f"{self.quiz.wrong}")
 
-    def press_true():
-        quiz.check_answer("true")
-        update_score()
-        start_game()
-
-
-def update_score():
-    count_check.delete('1.0', END)
-    count_check.insert('end', f"{quiz.score}")
-    count_x.delete('1.0', END)
-    count_x.insert('end', f"{quiz.wrong}")
-
-
-def clean_screen():
-    self.canvas.itemconfig(text_box, text="")
+    def clean_screen(self):
+        self.canvas.itemconfig(self.text_box, text="")
