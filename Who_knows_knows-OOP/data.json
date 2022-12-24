@@ -2,70 +2,30 @@
     "response_code": 0,
     "results": [
         {
-            "category": "Entertainment: Music",
+            "category": "General Knowledge",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Rapper Snoop Dogg&#039;s real name is &#039;Cordozar Calvin Broadus, Jr.&#039;.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Entertainment: Japanese Anime & Manga",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "The animated film &quot;Spirited Away&quot; won the Academy Award for Best Animated Feature at the 75th Academy Awards in 2003.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Entertainment: Japanese Anime & Manga",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "The anime Attack on Titan was directed by Tetsur\u014d Araki, the same person who directed the anime Highschool of the Dead.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Geography",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "You could walk from Norway to North Korea while only passing through Russia.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Science: Computers",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "Early RAM was directly seated onto the motherboard and could not be easily removed.",
-            "correct_answer": "True",
-            "incorrect_answers": [
-                "False"
-            ]
-        },
-        {
-            "category": "Entertainment: Television",
-            "type": "boolean",
-            "difficulty": "medium",
-            "question": "Bob Ross was a US Air Force pilot.",
+            "question": "The US emergency hotline is 911 because of the September 11th terrorist attacks.",
             "correct_answer": "False",
             "incorrect_answers": [
                 "True"
             ]
         },
         {
-            "category": "Sports",
+            "category": "History",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Wilt Chamberlain scored his infamous 100-point-game against the New York Knicks in 1962.",
+            "question": "Sargon II, a king of the Neo-Assyrian Empire, was a direct descendant of Sargon of Akkad.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
+            ]
+        },
+        {
+            "category": "Science: Mathematics",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "111,111,111 x 111,111,111 = 12,345,678,987,654,321",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -75,17 +35,57 @@
             "category": "Entertainment: Video Games",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Hidden in the files for &quot;Mario Kart Arcade GP&quot; is a picture of the Beslan school hostage crisis.",
+            "question": "The Ace Attorney trilogy was suppose to end with &quot;Phoenix Wright: Ace Attorney &minus; Trials and Tribulations&quot; as its final game.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
+            ]
+        },
+        {
+            "category": "Entertainment: Video Games",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "In World of Warcraft lore, Thrall is the original wielder of &quot;Doomhammer&quot;.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
+            ]
+        },
+        {
+            "category": "Vehicles",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "The General Motors EV1 was the first street-legal production electric vehicle.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
+            ]
+        },
+        {
+            "category": "Entertainment: Music",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "Pink Guy&#039;s debut album was &quot;Pink Season&quot;.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
+            ]
+        },
+        {
+            "category": "Geography",
+            "type": "boolean",
+            "difficulty": "medium",
+            "question": "Norway has a larger land area than Sweden.",
+            "correct_answer": "False",
+            "incorrect_answers": [
+                "True"
             ]
         },
         {
             "category": "General Knowledge",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "The British organisation CAMRA stands for The Campaign for Real Ale.",
+            "question": "&quot;Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo.&quot; is a grammatically correct sentence.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
@@ -95,7 +95,7 @@
             "category": "Entertainment: Video Games",
             "type": "boolean",
             "difficulty": "medium",
-            "question": "Minecraft wasn&rsquo;t the original name to Minecraft.",
+            "question": "The game Garry&#039;s Mod originally took assets and codes from the popular Half Life 2 mod JBmod.",
             "correct_answer": "True",
             "incorrect_answers": [
                 "False"
