@@ -1,0 +1,45 @@
+{
+  'status': 'ok',
+  'totalResults': 3,
+  'articles': [
+    {
+      'source': {
+        'id': None,
+        'name': 'SiliconANGLE News'
+      },
+      'author': 'Duncan Riley',
+      'title': 'Microsoft Notepad may be getting support for tabs in Windows 11',
+      'description': 'Notepad, Microsoft Corp.’s arguably most underrated app, may soon get an upgrade in Windows 11 after a senior product manager tweeted that the app is about to get tab support. Simple yet functional at its core, Notepad, known initially as Multi-Tool Notepad m…',
+      'url': 'https://siliconangle.com/2022/12/26/microsoft-notepad-may-getting-support-tabs-windows-11/',
+      'urlToImage': 'https://d15shllkswkct0.cloudfront.net/wp-content/blogs.dir/1/files/2022/12/notepad.png',
+      'publishedAt': '2022-12-27T01:47:55Z',
+      'content': 'Notepad, Microsoft Corp.’s arguably most underrated app, may soon get an upgrade in Windows 11 after a senior product manager tweeted that the app is about to get tab support.\r\nSimple yet functional … [+2380 chars]'
+    },
+    {
+      'source': {
+        'id': None,
+        'name': 'Marketscreener.com'
+      },
+      'author': 'MarketScreener',
+      'title': 'Wall St rises on boost from growth stocks, China reopening',
+      'description': "(marketscreener.com) Wall Street's main indexes rose on\nWednesday, boosted by a rebound in growth stocks as U.S.\nTreasury yields dipped, with sentiment bolstered by optimism\naround China's moves to reopen its economy.\n Apple Inc and Microsoft Corp advanced ov…",
+      'url': 'https://www.marketscreener.com/quote/stock/MICROSOFT-CORPORATION-4835/news/Wall-St-rises-on-boost-from-growth-stocks-China-reopening-42628373/?utm_medium=RSS&utm_content=20221228',
+      'urlToImage': 'https://www.marketscreener.com/images/twitter_MS_fdgris.png',
+      'publishedAt': '2022-12-28T15:30:35Z',
+      'content': '(For a Reuters live blog on U.S., UK and European stock\r\nmarkets, click LIVE/ or type LIVE/ in a news window.)\r\n*\r\nTesla rises 5%\r\n*\r\nSouthwest Airlines slips on government scrutiny\r\n*\r\nIndexes up: D… [+3420 chars]'
+    },
+    {
+      'source': {
+        'id': None,
+        'name': 'Biztoc.com'
+      },
+      'author': 'reuters.com',
+      'title': 'Wall St rises on boost from growth stocks, China reopening',
+      'description': "Wall Street's main indexes rose on Wednesday, boosted by a rebound in growth stocks as U.S. Treasury yields dipped, with sentiment bolstered by optimism around China's moves to reopen its economy. Apple Inc (AAPL.O) and Microsoft Corp (MSFT.O) advanced over 0…",
+      'url': 'https://biztoc.com/x/7933b8daa5a86004',
+      'urlToImage': 'https://c.biztoc.com/p/7933b8daa5a86004/og.webp',
+      'publishedAt': '2022-12-28T16:12:08Z',
+      'content': "Dec 28 (Reuters) - Wall Street's main indexes rose on Wednesday, boosted by a rebound in growth stocks as U.S. Treasury yields dipped, with sentiment bolstered by optimism around China's moves to reo… [+471 chars]"
+    }
+  ]
+}

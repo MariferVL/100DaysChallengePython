@@ -50,7 +50,7 @@ apiKey = os.environ['NEWSapiKey']
 NEWS_Endpoint = "https://newsapi.org/v2/everything"
 
 
-def create_msg(number, percent_change):
+def create_msg(change):
     """Create SMS text from News API."""
     parameters = {"q": COMPANY_NAME,
                   "from": secondLastStock,
@@ -59,21 +59,14 @@ def create_msg(number, percent_change):
                   "apiKey": apiKey,
                   "language": "en",
                   "pageSize": "3",
-                  "searchIn": "title,description",
+                  "searchIn": "title",
                   }
     response = requests.get(NEWS_Endpoint, params=parameters)
     response.raise_for_status()
     news_data = response.json()
-    print(news_data)
     for item in news_data["articles"]:
         news_title = item["title"]
-        if percent_change == "decrease":
-            change = f"📉{number}%"
-
-        elif percent_change == "increase":
-            change = f"📈{number}%"
-
-        stock_msg = f"\n{STOCK}: {change}\nTitle: {news_title}"
+        stock_msg = f"\n{STOCK}: {change}%\nTitle: {news_title}"
         # Longer version changed because of character limit segmentation.
         # stock_msg = f"\n{STOCK}: {change} \nTitle: {news_title}\nDescription: {news_descrip} "
         news_list.append(stock_msg)
@@ -81,22 +74,17 @@ def create_msg(number, percent_change):
 
 important_change = False
 
-if -5 >= percent:
-    decrease = percent * -1
-    create_msg(decrease, "decrease")
-    important_change = True
-elif percent >= 5:
-    create_msg(percent, "increase")
+if -5 >= percent or percent >= 5:
+    create_msg(percent)
     important_change = True
 
 # Send SMS if the % is > to 5 or -5.
 if important_change:
-    for msg in news_list:
-        print(msg)
-    # client = Client(account_sid, auth_token)
     # for msg in news_list:
-    #     message = client.messages.create(
-    #         body=msg,
-    #         from_="+123456789",
-    #         to="+123456789",
-    #     )
+    #     client = Client(account_sid, auth_token)
+    #     for msg in news_list:
+    #         message = client.messages.create(
+    #             body=msg,
+    #             from_="+123456789",
+    #             to="+123456789",
+    #         )
