@@ -2,28 +2,54 @@ import os
 import requests as rq
 from datetime import datetime as dt
 
-appID = os.environ["Nutritionix_ID"]
-appKey = os.environ["Nutritionix_Key"]
+apiKey = os.environ["Nutritionix_Key"]
 sheety_Token = os.environ["Sheety_Token"]
 
 # Getting current date and time
 today = dt.now().strftime("%d/%m/%Y")
 now = dt.now().strftime("%X")
 
+# User Queries
 
-## Getting Exercises User info:
+flyFrom = input("Enter the city from where you travel: \n")
+flyFromCode = "buscar"
+flyTo = input("Enter the city/cities where you want to go split by a space: \n")
+flyToCode = "buscar"
+flyDateFrom = input("Enter the date you plan to travel. Format: mm/dd/yyyy: \n")
+flyDateTo = input("Enter the date you plan to comeback. Format: mm/dd/yyyy: \n")
 
-tequilaEndpoint = "https://api.tequila.kiwi.com/search"
-flightQuery = input("Enter the city where you want to go: \n")
+
+# Acquire ground transport station IDs
+# TODO create a fn for from ann to cities.
+tequilaIDEndpoint = "https://api.tequila.kiwi.com/locations/query"
+
+params = {
+    "term": flyFrom,
+    "locations_type": "city",
+    "apikey": apiKey
+}
+
+response = rq.get(url=tequilaIDEndpoint, params=params)
+userData = response.json()
+
+## Search Flights:
+
+tequilaSearchEndpoint = "https://api.tequila.kiwi.com/search"
+
 parameters = {
-    "query": flightQuery,
+    "fly_from": flyFromCode,
+    "fly_to": flyTo,
+    "date_from": flyDateFrom,
+    "date_to": flyDateTo,
+    "one_for_city": 1,
+    "sort": "quality"
 }
 # params = {"x-user-jwt": "string(header)", "gender": "string(body)male/female", "weight_kg": "number(body)weight",
 #           "height_cm": "number", "age": "number"}
 
-header = {"x-app-id": appID, "x-app-key": appKey, "x-remote-user-id": "0", "Content-Type": "application/json"}
+header = {"apikey": appKey, "Content-Type": "application/json"}
 
-response = rq.post(url=tequilaEndpoint, json=parameters, headers=header)
+response = rq.post(url=tequilaSearchEndpoint, json=parameters, headers=header)
 userData = response.json()
 
 ## Adding Row to Spreadsheet:
@@ -35,16 +61,12 @@ for i in userData["exercises"]:
     activity = i["name"].title()
     duration = i["duration_min"]
     body = {
-            "workout": {
-                "date": today, "time": now, "exercise": activity, "duration": duration, "calories": calories
-            }
+        "workout": {
+            "date": today, "time": now, "exercise": activity, "duration": duration, "calories": calories
+        }
     }
     header = {"Content-Type": "application/json", "Authorization": sheety_Token}
 
     resp = rq.post(url=sheetyUrl, json=body, headers=header)
     print("response.status_code =", resp.status_code)
     print("response.text =", resp.text)
-
-
-
-
