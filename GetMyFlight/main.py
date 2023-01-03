@@ -2,7 +2,7 @@ import os
 import requests as rq
 from datetime import datetime as dt
 
-apiKey = os.environ["Nutritionix_Key"]
+apiKey = os.environ["Tequila_Key"]
 sheety_Token = os.environ["Sheety_Token"]
 
 # Getting current date and time
@@ -19,8 +19,8 @@ flyDateFrom = input("Enter the date you plan to travel. Format: mm/dd/yyyy: \n")
 flyDateTo = input("Enter the date you plan to comeback. Format: mm/dd/yyyy: \n")
 
 
-# Acquire ground transport station IDs
-# TODO create a fn for from ann to cities.
+# Acquire city IDs with Locations API:
+# TODO create a fn for "from" and "to" cities.
 tequilaIDEndpoint = "https://api.tequila.kiwi.com/locations/query"
 
 params = {
@@ -28,9 +28,28 @@ params = {
     "locations_type": "city",
     "apikey": apiKey
 }
-
+# GT = Ground transport (station IDs)
 response = rq.get(url=tequilaIDEndpoint, params=params)
-userData = response.json()
+print(f"This is the response: {response}")
+cityID = response.json()
+print(f"This is the city ID: {cityID}")
+
+
+# Acquire ground transport station IDs:
+# TODO create a fn for "from" and "to" cities.
+tequilaIDEndpoint = "https://api.tequila.kiwi.com/locations/query"
+
+params = {
+    "term": cityID,
+    "locations_type": "station, bus_station",
+    "apikey": apiKey
+}
+# GT = Ground transport (station IDs)
+response = rq.get(url=tequilaIDEndpoint, params=params)
+print(f"This is the response: {response}")
+cityGT_ID = response.json()
+print(f"This is the cityGT_ID: {cityGT_ID}")
+
 
 ## Search Flights:
 
@@ -42,12 +61,10 @@ parameters = {
     "date_from": flyDateFrom,
     "date_to": flyDateTo,
     "one_for_city": 1,
-    "sort": "quality"
+    "sort": "price"
 }
-# params = {"x-user-jwt": "string(header)", "gender": "string(body)male/female", "weight_kg": "number(body)weight",
-#           "height_cm": "number", "age": "number"}
 
-header = {"apikey": appKey, "Content-Type": "application/json"}
+header = {"apikey": apiKey, "Content-Type": "application/json"}
 
 response = rq.post(url=tequilaSearchEndpoint, json=parameters, headers=header)
 userData = response.json()
@@ -56,13 +73,12 @@ userData = response.json()
 
 sheetyUrl = 'https://api.sheety.co/2cd01f49c403153f17de4b6be63293b4/getMyFlight/hoja1'
 for i in userData["exercises"]:
-    distance = i["met"]
-    calories = i["nf_calories"]
-    activity = i["name"].title()
-    duration = i["duration_min"]
+    city = i["met"]
+    iataCode = i["met"]
+    lowestPrice = i["met"]
     body = {
-        "workout": {
-            "date": today, "time": now, "exercise": activity, "duration": duration, "calories": calories
+        "hoja1": {
+            "city": today, "iataCode": now, "lowestPrice": activity
         }
     }
     header = {"Content-Type": "application/json", "Authorization": sheety_Token}
