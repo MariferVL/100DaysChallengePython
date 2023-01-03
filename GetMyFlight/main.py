@@ -22,50 +22,18 @@ flyDateTo = input("Enter the date you plan to comeback. Format: mm/dd/yyyy: \n")
 # Acquire city IDs with Locations API:
 # TODO create a fn for "from" and "to" cities.
 tequilaIDEndpoint = "https://api.tequila.kiwi.com/locations/query"
+header = {"apikey": apiKey, "Content-Type": "application/json"}
 
 params = {
     "term": flyFrom,
     "locations_type": "city",
     "apikey": apiKey
 }
-# GT = Ground transport (station IDs)
-response = rq.get(url=tequilaIDEndpoint, params=params)
+response = rq.get(url=tequilaIDEndpoint, params=params, header=header)
 print(f"This is the response: {response}")
 cityID = response.json()
 print(f"This is the city ID: {cityID}")
 
-#
-# # Acquire ground transport station IDs:
-# # TODO create a fn for "from" and "to" cities.
-# params = {
-#     "term": cityID,
-#     "locations_type": "station, bus_station",
-#     "apikey": apiKey
-# }
-# # GT = Ground transport (station IDs)
-# response = rq.get(url=tequilaIDEndpoint, params=params)
-# print(f"This is the response: {response}")
-# cityGT_ID = response.json()
-# print(f"This is the cityGT_ID: {cityGT_ID}")
-#
-# # Search connections between locations:
-# tequilaSearchEndpoint = "https://api.tequila.kiwi.com/v2/search"
-#
-# params = {
-#     "fly_from":cityID
-#     "fly_to":cityID,
-#     "v":3,
-#     "vehicle_type":"train,bus",
-#     "date_from":flyDateFrom,
-#     "date_to":flyDateTo,
-# }
-# # GT = Ground transport (station IDs)
-# response = rq.get(url=tequilaSearchEndpoint, params=params)
-# print(f"This is the response: {response}")
-# connections = response.json()
-# print(f"This are the connections: {connections}")
-#
-#
 # ## Search Flights:
 #
 # tequilaSearchEndpoint = "https://api.tequila.kiwi.com/search"

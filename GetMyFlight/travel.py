@@ -10,7 +10,8 @@ today = dt.now().strftime("%d/%m/%Y")
 now = dt.now().strftime("%X")
 
 # User Queries
-
+# TODO ask if travel by sky or ground.
+# TODO create an if/else statement.
 flyFrom = input("Enter the city from where you travel: \n")
 flyFromCode = "buscar"
 flyTo = input("Enter the city/cities where you want to go split by a space: \n")
