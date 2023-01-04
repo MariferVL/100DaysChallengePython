@@ -12,28 +12,37 @@ now = dt.now().strftime("%X")
 # User Queries
 # TODO ask if travel by sky or ground.
 # TODO create an if/else statement.
-flyFrom = input("Enter the city from where you travel: \n")
-flyFromCode = "buscar"
-flyTo = input("Enter the city/cities where you want to go split by a space: \n")
-flyToCode = "buscar"
-flyDateFrom = input("Enter the date you plan to travel. Format: mm/dd/yyyy: \n")
-flyDateTo = input("Enter the date you plan to comeback. Format: mm/dd/yyyy: \n")
+fyFrom = input("Enter the city from where you travel: \n")
+flyTo = input("Enter the city/cities where you want to go split by a comma: \n")
+# flyDateFrom = input("Enter the date you plan to travel. Format: mm/dd/yyyy: \n")
+# flyDateTo = input("Enter the date you plan to comeback. Format: mm/dd/yyyy: \n")
 
 
-# Acquire city IDs with Locations API:
+# Acquire city code with Location API from input: ✔️
 # TODO create a fn for "from" and "to" cities.
-tequilaIDEndpoint = "https://api.tequila.kiwi.com/locations/query"
+destinationsCodes = []
 
-params = {
-    "term": flyFrom,
-    "locations_type": "city",
-    "apikey": apiKey
-}
-# GT = Ground transport (station IDs)
-response = rq.get(url=tequilaIDEndpoint, params=params)
-print(f"This is the response: {response}")
-cityID = response.json()
-print(f"This is the city ID: {cityID}")
+destinations = flyTo.split(",")
+
+for city in destinations:
+    header = {"apikey": apiKey, "Content-Type": "application/json"}
+    tequila_id_endpoint = "https://api.tequila.kiwi.com/locations/query"
+    params = {
+        "term": city,
+        "locations_type": "city",
+        "locale": "en - US",
+        "location_types": "city",
+        "limit": 1,
+        "active_only" : True,
+    }
+
+    response = rq.get(url=tequila_id_endpoint, params=params, headers=header)
+    print(f"This is the response: {response}")
+    city_code = response.json()["locations"][0]["code"]
+
+    print("response.status_code =", response.status_code)
+    print("response.text =", response.text)
+    print(f"This is the city code: {city_code}")
 
 #
 # # Acquire ground transport station IDs:
