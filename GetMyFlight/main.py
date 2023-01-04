@@ -2,6 +2,7 @@ import os
 import requests as rq
 from datetime import datetime as dt
 from pprint import pprint
+from flightSearch import FlightSearch
 
 apiKey = os.environ["Tequila_Key"]
 sheety_Token = os.environ["Sheety_Token"]
@@ -63,8 +64,6 @@ now = dt.now().strftime("%X")
 #
 # ## Adding Row to Spreadsheet:
 
-
-
 sheetyUrl = 'https://api.sheety.co/2cd01f49c403153f17de4b6be63293b4/getMyFlight/prices'
 header = {"Content-Type": "application/json", "Authorization": sheety_Token}
 # for i in userData["exercises"]:
@@ -79,19 +78,18 @@ header = {"Content-Type": "application/json", "Authorization": sheety_Token}
 #
 #
 #     resp = rq.post(url=sheetyUrl, json=body, headers=header)
+# print("response.status_code =", resp.status_code)
+# print("response.text =", resp.text)
 resp = rq.get(url=sheetyUrl, headers=header)
 
 jsonData = resp.json()
-textData = resp.text
 sheetData = jsonData["prices"]
 
+pprint(sheetData)
 
-print("response.status_code =", resp.status_code)
-print("response.text =", resp.text)
-print("sheetData =", sheetData)
+for item in sheetData:
+    iataCode = FlightSearch()
+    item["iataCode"] = iataCode.get_city_code()
+    print(item["iataCode"])
 
-
-
-
-
-
+print(sheetData)
