@@ -26,8 +26,4 @@ class DataManager:
             }
         }
         response = rq.put(url=url, json=body, headers=self.header)
-
-        data = response.json()
         print("response.status_code =", response.status_code)
-        print("response.text =", response.text)
-        print(data)

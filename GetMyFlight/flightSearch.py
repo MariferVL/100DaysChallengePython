@@ -6,27 +6,28 @@ apiKey = os.environ["Tequila_Key"]
 
 class FlightSearch:
     def __init__(self):
+        self.url = "https://api.tequila.kiwi.com"
         self.code = ""
         self.header = {"apikey": apiKey, "Content-Type": "application/json"}
 
+# TODO catch IndexError
     def get_city_code(self, city):
-        tequila_id_endpoint = "https://api.tequila.kiwi.com/locations/query"
+        id_endpoint = self.url + "/locations/query"
         params = {
-                    "term": city,
-                    "locations_type": "city",
-                    "apikey": apiKey
-                }
+            "term": city,
+            "locations_type": "city",
+            "locale": "en - US",
+            "location_types": "city",
+            "limit": 1,
+            "active_only": True,
+        }
 
-        response = rq.get(url=tequila_id_endpoint, params=params, headers=self.header)
-        print(f"This is the response: {response}")
-        city_id = response.json()
-        print(f"This is the city ID: {city_id}")
+        response = rq.get(url=id_endpoint, params=params, headers=self.header)
+        self.code = response.json()["locations"][0]["code"]
+
         print("response.status_code =", response.status_code)
-        print("response.text =", response.text)
-        # self.code = "Testing"
-        # return self.code
-
-
+        print(f"This is the city code: {self.code}")
+        return self.code
 
 # ## Search Flights:
 #
