@@ -10,7 +10,6 @@ lon = -77.0000000
 parameters = {"lat": lat,
               "lon": lon,
               "appid": OWM_apiKey,
-              "exclude": "current,minutely,daily",
               }
 
 # Set the SMS server:
@@ -22,7 +21,7 @@ response.raise_for_status()
 weather_data = response.json()
 
 # Set Rain Alert:
-weather_slice = weather_data["list"][:5]
+weather_slice = weather_data["list"][:3]
 will_rain = False
 
 for every3hrs_data in weather_slice:
@@ -35,9 +34,9 @@ if will_rain:
 
     message = client.messages \
         .create(
-            body="Bring an umbrella☔",
-            from_="+12517662823",
-            to="+56978665819",
+            body="Bring an umbrella ☔",
+            from_="+123456789",
+            to="+123456789",
         )
 
     print(message.status)
