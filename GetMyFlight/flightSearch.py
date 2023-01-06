@@ -1,18 +1,17 @@
 import os
 import requests as rq
-
+from flightData import FlightData
 apiKey = os.environ["Tequila_Key"]
 
 
 class FlightSearch:
     def __init__(self):
-        self.url = "https://api.tequila.kiwi.com"
         self.code = ""
         self.header = {"apikey": apiKey, "Content-Type": "application/json"}
 
 # TODO catch IndexError
     def get_city_code(self, city):
-        id_endpoint = self.url + "/locations/query"
+        id_endpoint = "https://api.tequila.kiwi.com/locations/query"
         params = {
             "term": city,
             "locations_type": "city",
@@ -31,18 +30,21 @@ class FlightSearch:
 
 # ## Search Flights:
 #
-# tequilaSearchEndpoint = "https://api.tequila.kiwi.com/search"
+#     def get_lower_price(self):
+#         search_endpoint = self.url + "/v2/search"
+#         params = {
+#             "fly_from": self.departureCode,
+#             "fly_to": flyTo,
+#             "date_from": flyDateFrom,
+#             "date_to": flyDateTo,
+#             "one_for_city": 1,
+#             "sort": "price"
+#         }
 #
-# parameters = {
-#     "fly_from": flyFromCode,
-#     "fly_to": flyTo,
-#     "date_from": flyDateFrom,
-#     "date_to": flyDateTo,
-#     "one_for_city": 1,
-#     "sort": "price"
-# }
-#
-# header = {"apikey": apiKey, "Content-Type": "application/json"}
-#
-# response = rq.post(url=tequilaSearchEndpoint, json=parameters, headers=header)
-# userData = response.json()
+#         response = rq.get(url=search_endpoint, params=params, headers=self.header)
+#         data = response.json()
+#         print("response.status_code =", response.status_code)
+#         print(f"This is the city code: {self.code}")
+#         return
+
+
