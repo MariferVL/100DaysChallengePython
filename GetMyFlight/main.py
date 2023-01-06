@@ -3,6 +3,7 @@ import requests as rq
 from datetime import datetime as dt
 from pprint import pprint
 from flightSearch import FlightSearch
+from flightData import FlightData
 from dataManager import DataManager
 
 apiKey = os.environ["Tequila_Key"]
@@ -34,6 +35,16 @@ sheetData = resp.json()["prices"]
 for item in sheetData:
     iataCode = FlightSearch()
     item["iataCode"] = iataCode.get_city_code(item["city"])
-    new_item = DataManager(item["city"], item["iataCode"], item["id"], item["lowestPrice"])
-    new_item.edit_sheet()
+    flightData = FlightData("SCL", item["iataCode"])
+    dataList = flightData.get_lower_price()
+    if dataList == 0:
+        new_item = DataManager(item["city"], item["iataCode"], item["id"])
+        new_item.edit_code()
+    else:
+        item["FlightDate"] = dataList[1]
+        item["lowestPrice"] = dataList[0]
+
+        new_item = DataManager(item["city"], item["iataCode"], item["id"])
+        new_item.edit_code()
+        new_item.edit_price(item["lowestPrice"], item["FlightDate"])
 
